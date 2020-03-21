@@ -1,24 +1,9 @@
 <?php
+require_once(__DIR__.'/lang/install.php');
+require_once(__DIR__.'/config.php');
+require_once(__DIR__.'/lib.php');
 
-use classes\Map;
-
-spl_autoload_register(function($class) {
-    $ds = DIRECTORY_SEPARATOR;
-    $filename = $_SERVER['DOCUMENT_ROOT'] . $ds . str_replace('\\', $ds, $class) . '.php';
-    require($filename);
-});
-
-ini_set('error_reporting', E_ERROR);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-
-$OUTPUT .= file_get_contents('templates/header.html');
-
-function initGameEngine(&$output){
-    $map = new Map();
-}
-
-initGameEngine($OUTPUT);
-
-$OUTPUT .= file_get_contents('templates/footer.html');
+require_once 'templates/header.php';
+require_once 'templates/content.php';
+require_once 'templates/footer.php';
 ?>

@@ -2,5 +2,28 @@ form{
     border: 1px solid black;
     margin-top: 15px;
     padding-left: 10px;
+    padding-right: 10px;
     width: 110px;
+}
+
+form button{
+    height: 25px;
+    width:100%;
+    margin: 7px auto;
+}
+
+form .header{
+    text-align: center;
+    margin: 7px auto;
+}
+
+form .form-items{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+form .form-item{
+    /*display: ;*/
+    margin: 3px auto;
 }

@@ -7,4 +7,4 @@ $string['buttonDown'] = 'Down';
 $string['selectlanguage'] = 'Select language';
 $string['english'] = 'English';
 $string['russian'] = 'Russian';
-$string['submit'] = 'Submit';
+$string['submit'] = 'Save Changes';

@@ -16,10 +16,3 @@
         <button type="submit"><?=$string['submit']?></button>
     </div>
 </form>
-
-<p>
-    <button><?=$string['buttonUp'];?></button>
-    <button><?=$string['buttonLeft'];?></button>
-    <button><?=$string['buttonRight'];?></button>
-    <button><?=$string['buttonDown'];?></button>
-</p>

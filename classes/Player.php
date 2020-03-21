@@ -3,5 +3,5 @@
 namespace classes;
 
 class Player{
-    private $a;
+    private $playerIsAlive;
 }

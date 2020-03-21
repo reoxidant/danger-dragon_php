@@ -3,28 +3,19 @@
 namespace classes;
 
 class Map{
-    private $playerIsAlive;
+    private $instanceOfMap;
+    private $numberOfLevel;
+    private $errors = [];
 
-    public function _construct($boolIsAlive){
-        $this->playerIsAlive = $boolIsAlive;
-    }
-
-    private function render(){
-        $OUTPUT = file_get_contents('templates/header.html');
-        if($this->playerIsAlive){
-            $this->renderInterface();
+    public function __construct($loadedNewMap){
+        if($loadedNewMap == null){
+            $this->instanceOfMap = json_decode(file_get_contents('map'. $this->numberOfLevel));
+        }else{
+            $this->instanceOfMap = $loadedNewMap;
         }
-        $OUTPUT = file_get_contents('templates/footer.html');
     }
 
-    private function renderInterface(){
-        $output = "
-            <form method='post'>
-                <button value='up'>{$string['buttonUp']}</button>
-                <button value='left'>{$string['buttonLeft']}</button>
-                <button value='right'>{$string['buttonRight']}</button>
-                <button value='down'>{$string['buttonDown']}</button>          
-            </form>
-        ";
+    public function show_error(){
+        return $this->errors;
     }
 }

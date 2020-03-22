@@ -6,8 +6,9 @@ class Map{
     private $instanceOfMap;
     private $numberOfLevelMap = 1;
     private $errors = [];
+    private $arrAvailablePathOnTheMap = ['.', 'C'];
 
-    public function __construct($loadedNewMap = null, $levelOfMapMustBe){
+    public function __construct($loadedNewMap = null){
         if($loadedNewMap == null){
             $this->instanceOfMap = json_decode(file_get_contents('maps/map'. $this->numberOfLevelMap.'.json'));
         }else{
@@ -19,19 +20,23 @@ class Map{
         return $this->errors;
     }
 
-    public function renderMap() {
-        foreach($this->instanceOfMap as $key => $val) {
-            if($key = array_search('C', $this->instanceOfMap[$key], true)){
-                $this->errors[] = "enter to collecting point";
+    public function renderMap($player) {
+        foreach($this->instanceOfMap as $keyRowMap => $rowMap) {
+            if ($playerKeyOnTheRow = array_search('P', $this->instanceOfMap[$keyRowMap], true)) {
+                $player->move($playerKeyOnTheRow);
+//                var_dump($rowMap);
+//                var_dump($playerKeyOnTheRow);
+                $player->moveLeft($this->instanceOfMap, $keyRowMap, $_POST, $rowMap[$playerKeyOnTheRow - 1], $this->arrAvailablePathOnTheMap);
+
             }
-            $this->errors[] = "i want to get any errors";
         }
     }
 }
+$player = new Player();
 
 $numberNewMap = null;
 $numberOfLevelMap = 1;
 
 $map = new Map($numberNewMap, $numberOfLevelMap);
-$map->renderMap();
+$map->renderMap($player);
 $ERRORS['map_errors'] = $map->show_error();

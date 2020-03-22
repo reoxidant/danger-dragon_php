@@ -6,7 +6,7 @@ class Map{
     private $instanceOfMap;
     private $numberOfLevelMap = 1;
     private $errors = [];
-    private $arrAvailablePathOnTheMap = ['.', 'C'];
+    private $arrAvailableWaysOnTheMap = ['.', 'C'];
 
     public function __construct($loadedNewMap = null){
         if($loadedNewMap == null){
@@ -20,14 +20,15 @@ class Map{
         return $this->errors;
     }
 
-    public function renderMap($player) {
-        foreach($this->instanceOfMap as $keyRowMap => $rowMap) {
-            if ($playerKeyOnTheRow = array_search('P', $this->instanceOfMap[$keyRowMap], true)) {
-                $player->move($playerKeyOnTheRow);
-//                var_dump($rowMap);
-//                var_dump($playerKeyOnTheRow);
-                $player->moveLeft($this->instanceOfMap, $keyRowMap, $_POST, $rowMap[$playerKeyOnTheRow - 1], $this->arrAvailablePathOnTheMap);
-
+    public function movePlayer($player) {
+        foreach($this->instanceOfMap as $keyRowMap => $rowMapArray) {
+            $player->checkIfPlayerHaveAllCoins($this->instanceOfMap, $keyRowMap);
+            if ($playerKeyOnTheRowMap = array_search('P', $this->instanceOfMap[$keyRowMap], true)) {
+                $player->definePlayerPosition($playerKeyOnTheRowMap, $keyRowMap);
+                $player->moveLeft($this->instanceOfMap, $rowMapArray, $_POST, $rowMapArray[$playerKeyOnTheRowMap - 1], $this->arrAvailableWaysOnTheMap);
+                $player->moveRight($this->instanceOfMap, $rowMapArray, $_POST, $rowMapArray[$playerKeyOnTheRowMap + 1], $this->arrAvailableWaysOnTheMap);
+                $player->moveUp($this->instanceOfMap, $_POST, $this->arrAvailableWaysOnTheMap);
+                $player->moveDown($this->instanceOfMap, $_POST, $this->arrAvailableWaysOnTheMap);
             }
         }
     }
@@ -38,5 +39,5 @@ $numberNewMap = null;
 $numberOfLevelMap = 1;
 
 $map = new Map($numberNewMap, $numberOfLevelMap);
-$map->renderMap($player);
+$map->movePlayer($player);
 $ERRORS['map_errors'] = $map->show_error();

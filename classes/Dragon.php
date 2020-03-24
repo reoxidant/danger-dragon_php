@@ -2,6 +2,7 @@
 
 namespace classes;
 
-class Dragon{
+class Dragon
+{
 
 }

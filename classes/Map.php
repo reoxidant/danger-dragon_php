@@ -3,28 +3,41 @@
 namespace classes;
 
 class Map{
-    private $playerIsAlive;
+    private $instanceOfMap;
+    private $numberOfLevelMap = 1;
+    private $errors = [];
+    private $arrAvailableWaysOnTheMap = ['.', 'C'];
 
-    public function _construct($boolIsAlive){
-        $this->playerIsAlive = $boolIsAlive;
-    }
-
-    private function render(){
-        $OUTPUT = file_get_contents('templates/header.html');
-        if($this->playerIsAlive){
-            $this->renderInterface();
+    public function __construct($loadedNewMap = null){
+        if($loadedNewMap == null){
+            $this->instanceOfMap = json_decode(file_get_contents('maps/map'. $this->numberOfLevelMap.'.json'));
+        }else{
+            $this->instanceOfMap = $loadedNewMap;
         }
-        $OUTPUT = file_get_contents('templates/footer.html');
     }
 
-    private function renderInterface(){
-        $output = "
-            <form method='post'>
-                <button value='up'>{$string['buttonUp']}</button>
-                <button value='left'>{$string['buttonLeft']}</button>
-                <button value='right'>{$string['buttonRight']}</button>
-                <button value='down'>{$string['buttonDown']}</button>          
-            </form>
-        ";
+    public function show_error(){
+        return $this->errors;
+    }
+
+    public function movePlayer($player) {
+        foreach($this->instanceOfMap as $keyRowMap => $rowMapArray) {
+            $player->checkIfPlayerHaveAllCoins($this->instanceOfMap, $keyRowMap);
+            if ($playerKeyOnTheRowMap = array_search('P', $this->instanceOfMap[$keyRowMap], true)) {
+                $player->definePlayerPosition($playerKeyOnTheRowMap, $keyRowMap);
+                $player->moveLeft($this->instanceOfMap, $rowMapArray, $_POST, $rowMapArray[$playerKeyOnTheRowMap - 1], $this->arrAvailableWaysOnTheMap);
+                $player->moveRight($this->instanceOfMap, $rowMapArray, $_POST, $rowMapArray[$playerKeyOnTheRowMap + 1], $this->arrAvailableWaysOnTheMap);
+                $player->moveUp($this->instanceOfMap, $_POST, $this->arrAvailableWaysOnTheMap);
+                $player->moveDown($this->instanceOfMap, $_POST, $this->arrAvailableWaysOnTheMap);
+            }
+        }
     }
 }
+$player = new Player();
+
+$numberNewMap = null;
+$numberOfLevelMap = 1;
+
+$map = new Map($numberNewMap, $numberOfLevelMap);
+$map->movePlayer($player);
+$ERRORS['map_errors'] = $map->show_error();

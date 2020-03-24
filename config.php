@@ -10,4 +10,4 @@ spl_autoload_register(function($class) {
     require($filename);
 });
 
-global $OUTPUT;
+global $OUTPUT, $ERRORS;

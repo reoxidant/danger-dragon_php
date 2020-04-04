@@ -1,11 +1,12 @@
 <?php
 
-setcookie('lang', $_POST['language'] == null ? $_COOKIE['lang'] : $_POST['language'], time()+3600, '/');
+setcookie('lang', $_POST['language'] == null ? $_COOKIE['lang'] : $_POST['language'], time() + 3600, '/');
 
 $post = $_POST['language'];
 $language = null;
 
-function changeLang($post, $cookie = 'en'){
+function changeLang($post, $cookie = 'en')
+{
     return ($post == null) ? $cookie : $post;
 }
 

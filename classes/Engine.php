@@ -1,29 +1,25 @@
 <?php
 
-namespace classes;
-
-use Map;
-
 class Engine
 {
     private $output;
     private $number_level_map;
 
+    private $errors = [];
 
-    private function renderMap()
+    public function show_error()
     {
-
+        return $this->errors;
     }
 
     private function renderInterface($output)
     {
         $output = '<div class="main-interface">';
-        new Map()->
-
+        
         $output .= '</div>';
     }
 
-    public function renderHtml()
+    public function renderPage()
     {
         $this->output = file_get_contents('templates/header.html');
 
@@ -34,19 +30,6 @@ class Engine
         return $this->output;
     }
 
-    public function movePlayer($player)
-    {
-        foreach ($this->instanceOfMap as $keyRowMap => $rowMapArray) {
-            $player->checkIfPlayerHaveAllCoins($this->instanceOfMap, $keyRowMap);
-            if ($playerKeyOnTheRowMap = array_search('P', $this->instanceOfMap[$keyRowMap], true)) {
-                $player->definePlayerPosition($playerKeyOnTheRowMap, $keyRowMap);
-                $player->moveLeft($this->instanceOfMap, $rowMapArray, $_POST, $rowMapArray[$playerKeyOnTheRowMap - 1], $this->arrAvailableWaysOnTheMap);
-                $player->moveRight($this->instanceOfMap, $rowMapArray, $_POST, $rowMapArray[$playerKeyOnTheRowMap + 1], $this->arrAvailableWaysOnTheMap);
-                $player->moveUp($this->instanceOfMap, $_POST, $this->arrAvailableWaysOnTheMap);
-                $player->moveDown($this->instanceOfMap, $_POST, $this->arrAvailableWaysOnTheMap);
-            }
-        }
-    }
 
     private function checkIfPlayerIsFinish($valuePointMapToGoThePlayer, $finish = 'D')
     {

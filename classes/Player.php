@@ -1,15 +1,29 @@
 <?php
 
-namespace classes;
-
 class Player
 {
     private $playerIsAlive;
     private $playerPositionKey;
     private $playerPositionKeyRow;
     private $playerMovedToNewPointOnTheMap = false;
-    private $number_level_map = 0;
     private $playerCollectedCoins = true;
+    private $playerAvailableWaysOnTheMap = ['.', 'C'];
+    private $map = null;
+
+    public function movePlayer()
+    {
+        $this->map = new Map();
+        foreach ($this->map as $keyRowMap => $rowMapArray) {
+            $this->checkIfPlayerHaveAllCoins($this->map, $keyRowMap);
+            if ($playerKeyOnTheRowMap = array_search('P', $this->map[$keyRowMap], true)) {
+                $this->definePlayerPosition($playerKeyOnTheRowMap, $keyRowMap);
+                $this->moveLeft($this->map, $rowMapArray, $_POST, $rowMapArray[$playerKeyOnTheRowMap - 1], $this->playerAvailableWaysOnTheMap);
+                $this->moveRight($this->map, $rowMapArray, $_POST, $rowMapArray[$playerKeyOnTheRowMap + 1], $this->playerAvailableWaysOnTheMap);
+                $this->moveUp($this->map, $_POST, $this->playerAvailableWaysOnTheMap);
+                $this->moveDown($this->map, $_POST, $this->playerAvailableWaysOnTheMap);
+            }
+        }
+    }
 
     public function definePlayerPosition($keyPlayerInArray, $keyPlayerRowArray)
     {
@@ -74,7 +88,7 @@ class Player
         }
     }
 
-    public function moveDown($map1Array, $post, $arrAvailableWaysOnTheMap)
+    public function moveDown($mapArray, $post, $arrAvailableWaysOnTheMap)
     {
         if ($this->playerMovedToNewCellOnTheMap == false) {
             if ($post['playerDirectionMove'] == 'down' and in_array($mapArray[$this->playerPositionKeyRow + 1][$this->playerPositionKey], $arrAvailableWaysOnTheMap)) {

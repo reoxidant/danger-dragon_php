@@ -1,10 +1,12 @@
 <?php
 
+namespace classes;
+
+
 class Engine
 {
     private $output;
     private $number_level_map;
-
     private $errors = [];
 
     public function show_error()
@@ -12,22 +14,36 @@ class Engine
         return $this->errors;
     }
 
-    private function renderInterface($output)
+    private function renderInterface($map)
     {
-        $output = '<div class="main-interface">';
-        
-        $output .= '</div>';
+        $this->output .= '<div class="main-interface">';
+
+        $this->output .= $map;
+
+        $this->output .= '</div>';
     }
 
-    public function renderPage()
+    private function renderPage($elementsMap)
     {
-        $this->output = file_get_contents('templates/header.html');
+        $this->output = file_get_contents('./templates/header.php');
 
-        $this->output .= $this->renderInterface($this->output);
+        $this->renderInterface($elementsMap);
 
-        $this->output .= file_get_contents('templates/footer.html');
+        $this->output .= file_get_contents('./templates/footer.php');
 
         return $this->output;
+    }
+
+    public function run()
+    {
+        global $OUTPUT;
+
+        $map = new Map();
+        $map->loadLevelOnTheMap($this->number_level_map);
+
+        $elementsMap = $map->renderMap();
+
+        $OUTPUT = $this->renderPage($elementsMap);
     }
 
 

@@ -1,12 +1,33 @@
 <?php
 
-namespace classes;
+namespace app\classes;
 
 class Map
 {
     private $grid;
     private $jsonGridMap;
     private $numberOfLevel = 1;
+
+
+    private function getRenderMapCell($itemMap, $key, $takeAllKeys = null)
+    {
+        switch ($itemMap) {
+            case 'W':
+                return '<button type="button" disabled class="btn btn-secondary map-item map-item-'.$key.'">&nbsp;</button>';
+            case 'P':
+                return '<button type="button" disabled class="btn btn-secondary map-item map-item-'.$key.'">&nbsp;</button>';
+            case 'D':
+                return '<button type="button" disabled class="btn btn-secondary map-item map-item-'.$key.'">&nbsp;</button>';
+            case 'X':
+                if ($takeAllKeys == true) {
+                    return '<button type="button" disabled class="btn btn-success map-item map-item-'.$key.'"><span class="fas fa-door-open"></span></button>';
+                } else {
+                    return '<button type="button" disabled class="btn btn-secondary map-item map-item-'.$key.'"><span class="fas fa-door-closed"></span></button>';
+                }
+            default:
+                return '<button type="button" disabled class="btn btn-light map-item map-item-'.$key.'">&nbsp;</button>';
+        }
+    }
 
     public function loadLevelOnTheMap($loadedNewMap = null)
     {
@@ -19,30 +40,14 @@ class Map
 
     public function renderMap()
     {
+        $this->grid = "<div id='map'>";
         foreach ($this->jsonGridMap as $verticalColumnMap) {
             foreach ($verticalColumnMap as $key => $cellMap) {
-                if ($cellMap = 'X') {
-                    $this->grid .= '<button type="button" disabled class="btn btn-secondary board">&nbsp;</button>';
-                } else if ($cellMap == 'P') {
-                    $this->grid .= '<button type="button" disabled class="btn btn-primary board"><span class="fas fa-user"></span></button>';
-                } else if ($cellMap == 'E') {
-                    $this->grid .= '<button type="button" disabled class="btn btn-danger board"><span class="fas fa-dragon"></span></button>';
-                } else if ($cellMap == 'D') {
-                    if ($this->collected_all_coins == true) {
-                        $this->grid .= '<button type="button" disabled class="btn btn-success board"><span class="fas fa-door-open"></span></button>';
-                    } else {
-                        $this->grid .= '<button type="button" disabled class="btn btn-secondary board"><span class="fas fa-door-closed"></span></button>';
-                    }
-                } else if ($cellMap == 'O') {
-                    $this->grid .= '<button type="button" disabled class="btn btn-danger board">&nbsp;</button>';
-                } else if ($cellMap == 'C') {
-                    $this->grid .= '<button type="button" disabled class="btn btn-warning board">&nbsp;</button>';
-                } else {
-                    $this->grid .= '<button type="button" disabled class="btn btn-light board">&nbsp;</button>';
-                }
+                $this->grid .= $this->getRenderMapCell($cellMap, $key, $this->collectAllKeys);
             }
         }
-
+        $this->grid .= "</div>";
         return $this->grid;
     }
+
 }

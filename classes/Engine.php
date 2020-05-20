@@ -5,7 +5,7 @@ namespace app\classes;
 class Engine
 {
     private $output;
-    private $number_level_map;
+    private $number_level_map = 0;
     private $errors = [];
 
     public function show_error()
@@ -16,6 +16,8 @@ class Engine
     private function renderInterface($map)
     {
         $this->output .= '<div class="main-interface">';
+
+        $this->output .= $this->renderFormInterface();
 
         $this->output .= $map;
 
@@ -31,6 +33,33 @@ class Engine
         $this->output .= file_get_contents('./templates/footer.php');
 
         return $this->output;
+    }
+
+    private function renderFormInterface()
+    {
+        return
+            '
+            <div class="nav-state">
+                <div class="nav-status">
+                    <p>Level Game is  '."$this->number_level_map".'</p>
+                    <button class="btn btn-danger" value=\'document.cookie ="php_game_level_number=1; expires = Thu, 01 Jan 1970 00:00:00 GMT"\'>Reset Game</button>
+                </div>        
+                <div class="nav-bar">
+                     <form method="POST" >
+                        <div class="nav-bar-top">
+                            <button type="button" class="btn btn-primary">Move Up</button>
+                        </div>
+                        <div class="nav-bar-center">
+                            <button type="button" class="btn btn-primary">Move Left</button>
+                            <button type="button" class="btn btn-primary">Move Right</button>
+                        </div>
+                        <div class="nav-bar-center">
+                             <button type="button" class="btn btn-primary">Move Down</button>
+                        </div>          
+                    </form>
+                </div>    
+            </div>
+            ';
     }
 
     public function run()

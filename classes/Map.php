@@ -15,15 +15,11 @@ class Map
             case 'W':
                 return '<button type="button" disabled class="btn btn-secondary map-item map-item-'.$key.'">&nbsp;</button>';
             case 'P':
-                return '<button type="button" disabled class="btn btn-secondary map-item map-item-'.$key.'">&nbsp;</button>';
+                return '<button type="button" disabled class="player btn btn-light map-item map-item-'.$key.'">&nbsp;</button>';
             case 'D':
-                return '<button type="button" disabled class="btn btn-secondary map-item map-item-'.$key.'">&nbsp;</button>';
+                return '<button type="button" disabled class="dragon btn btn-light map-item map-item-'.$key.'">&nbsp;</button>';
             case 'X':
-                if ($takeAllKeys == true) {
-                    return '<button type="button" disabled class="btn btn-success map-item map-item-'.$key.'"><span class="fas fa-door-open"></span></button>';
-                } else {
-                    return '<button type="button" disabled class="btn btn-secondary map-item map-item-'.$key.'"><span class="fas fa-door-closed"></span></button>';
-                }
+                return '<button type="button" disabled class="door btn btn-light map-item map-item-'.$key.'">&nbsp;</button>';
             default:
                 return '<button type="button" disabled class="btn btn-light map-item map-item-'.$key.'">&nbsp;</button>';
         }

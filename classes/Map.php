@@ -1,52 +1,49 @@
 <?php
 
-namespace classes;
+namespace app\classes;
 
 class Map
 {
-    private $instanceOfMap;
-    private $numberOfLevelMap = 1;
-    private $errors = [];
-    private $arrAvailableWaysOnTheMap = ['.', 'C'];
+    private $grid;
+    private $jsonGridMap;
+    private $numberOfLevel = 1;
 
-    public function show_error()
+
+    private function getRenderMapCell($itemMap, $key, $takeAllKeys = null)
     {
-        return $this->errors;
+        switch ($itemMap) {
+            case 'W':
+                return '<button type="button" disabled class="btn btn-secondary map-item map-item-'.$key.'">&nbsp;</button>';
+            case 'P':
+                return '<button type="button" disabled class="player btn btn-light map-item map-item-'.$key.'">&nbsp;</button>';
+            case 'D':
+                return '<button type="button" disabled class="dragon btn btn-light map-item map-item-'.$key.'">&nbsp;</button>';
+            case 'X':
+                return '<button type="button" disabled class="door btn btn-light map-item map-item-'.$key.'">&nbsp;</button>';
+            default:
+                return '<button type="button" disabled class="btn btn-light map-item map-item-'.$key.'">&nbsp;</button>';
+        }
     }
-    public function loadNewLevel($loadedNewMap = null)
 
+    public function loadLevelOnTheMap($loadedNewMap = null)
     {
         if ($loadedNewMap == null) {
-            $this->instanceOfMap = json_decode(file_get_contents('maps/map' . $this->numberOfLevelMap . '.json'));
+            $this->jsonGridMap = json_decode(file_get_contents('./maps/map' . $this->numberOfLevel . '.json'));
         } else {
-            $this->instanceOfMap = $loadedNewMap;
+            $this->jsonGridMap = $loadedNewMap;
         }
     }
 
-    public function renderMap($output)
+    public function renderMap()
     {
-        foreach ($this->instanceOfMap as $verticalColumn) {
-            foreach ($verticalColumn as $cell) {
-                if ($cell = 'X') {
-                    $output .= '<button type="button" disabled class="btn btn-secondary board">&nbsp;</button>';
-                } else if ($cell == 'P'){
-                    $output .= '<button type="button" disabled class="btn btn-primary board"><span class="fas fa-user"></span></button>';
-                } else if ($cell ==  'E'){
-                    $output .= '<button type="button" disabled class="btn btn-danger board"><span class="fas fa-dragon"></span></button>';
-                } else if ($cell == 'D'){
-                    if($this->collected_all_coins == true){
-                        $output .= '<button type="button" disabled class="btn btn-success board"><span class="fas fa-door-open"></span></button>';
-                    } else {
-                        $output .= '<button type="button" disabled class="btn btn-secondary board"><span class="fas fa-door-closed"></span></button>'
-                    }
-                } else if ($cell == 'O'){
-                    $output .= '<button type="button" disabled class="btn btn-danger board">&nbsp;</button>';
-                } else if ($cell == 'C'){
-                    $output .= '<button type="button" disabled class="btn btn-warning board">&nbsp;</button>';
-                } else {
-                    $output .= '<button type="button" disabled class="btn btn-light board">&nbsp;</button>';
-                }
+        $this->grid = "<div id='map'>";
+        foreach ($this->jsonGridMap as $verticalColumnMap) {
+            foreach ($verticalColumnMap as $key => $cellMap) {
+                $this->grid .= $this->getRenderMapCell($cellMap, $key, $this->collectAllKeys);
             }
         }
+        $this->grid .= "</div>";
+        return $this->grid;
     }
+
 }

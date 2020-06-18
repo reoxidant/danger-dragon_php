@@ -27,3 +27,16 @@ function checkErrors($ERRORS)
         }
     }
 }
+
+function debug($val, $die = null){
+    if($die){
+        echo '<pre>';
+        var_dump($val);
+        die();
+        echo '</pre>';
+    }else{
+        echo '<pre>';
+        var_dump($val);
+        echo '</pre>';
+    }
+}

@@ -2,12 +2,28 @@
 
 namespace app\classes;
 
+/**
+ * Class Map
+ * @package app\classes
+ */
 class Map
 {
+    /**
+     * @var
+     */
     private $grid;
+    /**
+     * @var
+     */
     private $jsonGridMap;
+    /**
+     * @var int
+     */
     private $numberOfLevel = 1;
 
+    /**
+     * @param null $loadedNewMap
+     */
     public function loadLevelOnTheMap($loadedNewMap = null)
     {
         if ($loadedNewMap == null) {
@@ -17,6 +33,9 @@ class Map
         }
     }
 
+    /**
+     *
+     */
     public function renderMap()
     {
         $this->grid = "<div id='map'>";
@@ -28,6 +47,11 @@ class Map
         $this->grid .= "</div>";
     }
 
+    /**
+     * @param $itemMap
+     * @param $key
+     * @return string
+     */
     private function getRenderMapCell($itemMap, $key)
     {
         switch ($itemMap) {

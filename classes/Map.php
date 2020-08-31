@@ -8,8 +8,27 @@ class Map
     private $jsonGridMap;
     private $numberOfLevel = 1;
 
+    public function loadLevelOnTheMap($loadedNewMap = null)
+    {
+        if ($loadedNewMap == null) {
+            $this->jsonGridMap = json_decode(file_get_contents('./maps/map' . $this->numberOfLevel . '.json'));
+        } else {
+            $this->jsonGridMap = $loadedNewMap;
+        }
+    }
 
-    private function getRenderMapCell($itemMap, $key, $takeAllKeys = null)
+    public function renderMap()
+    {
+        $this->grid = "<div id='map'>";
+        foreach ($this->jsonGridMap as $verticalColumnMap) {
+            foreach ($verticalColumnMap as $key => $cellMap) {
+                $this->grid .= $this->getRenderMapCell($cellMap, $key);
+            }
+        }
+        $this->grid .= "</div>";
+    }
+
+    private function getRenderMapCell($itemMap, $key)
     {
         switch ($itemMap) {
             case 'W':
@@ -25,25 +44,12 @@ class Map
         }
     }
 
-    public function loadLevelOnTheMap($loadedNewMap = null)
+    /**
+     * @return mixed
+     */
+    public function getGridOfMap()
     {
-        if ($loadedNewMap == null) {
-            $this->jsonGridMap = json_decode(file_get_contents('./maps/map' . $this->numberOfLevel . '.json'));
-        } else {
-            $this->jsonGridMap = $loadedNewMap;
-        }
-    }
-
-    public function renderMap()
-    {
-        $this->grid = "<div id='map'>";
-        foreach ($this->jsonGridMap as $verticalColumnMap) {
-            foreach ($verticalColumnMap as $key => $cellMap) {
-                $this->grid .= $this->getRenderMapCell($cellMap, $key, $this->collectAllKeys);
-            }
-        }
-        $this->grid .= "</div>";
-        return $this->grid;
+        return $this -> grid;
     }
 
 }

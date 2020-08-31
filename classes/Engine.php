@@ -5,7 +5,7 @@ namespace app\classes;
 class Engine
 {
     private $output;
-    private $number_level_map = 0;
+    private $number_level_map = 1;
     private $errors = [];
 
     public function show_error()
@@ -24,21 +24,9 @@ class Engine
         $this->output .= '</div>';
     }
 
-    private function renderPage($elementsMap)
-    {
-        $this->output = file_get_contents('./templates/header.php');
-
-        $this->renderInterface($elementsMap);
-
-        $this->output .= file_get_contents('./templates/footer.php');
-
-        return $this->output;
-    }
-
     private function renderFormInterface()
     {
-        return
-            '
+        return '
             <div class="nav-state">
                 <div class="nav-status">
                     <p>Level Game is  '."$this->number_level_map".'</p>
@@ -59,7 +47,18 @@ class Engine
                     </form>
                 </div>    
             </div>
-            ';
+        ';
+    }
+
+    private function renderPage($htmlMap)
+    {
+        $this->output = file_get_contents('./templates/header.php');
+
+        $this->renderInterface($htmlMap);
+
+        $this->output .= file_get_contents('./templates/footer.php');
+
+        return $this->output;
     }
 
     public function run()
@@ -67,13 +66,13 @@ class Engine
         global $OUTPUT;
 
         $map = new Map();
-        $map->loadLevelOnTheMap($this->number_level_map);
+        $map->loadLevelOnTheMap();
+        $map->renderMap();
 
-        $elementsMap = $map->renderMap();
+        $htmlMap = $map->getGridOfMap();
 
-        $OUTPUT = $this->renderPage($elementsMap);
+        $OUTPUT = $this->renderPage($htmlMap);
     }
-
 
     private function checkIfPlayerIsFinish($valuePointMapToGoThePlayer, $finish = 'D')
     {

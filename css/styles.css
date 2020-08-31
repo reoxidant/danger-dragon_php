@@ -1,47 +1,7 @@
 .main-interface{
     height: 540px;
     display: flex;
-    align-items: flex-start;
-}
-
-.main-interface>div{
-    margin: 2% auto;
-}
-
-.nav-status{
-    margin-bottom: 20px;
-}
-
-form {
-    margin-top: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
-    width: 150px;
-}
-
-form .header {
-    text-align: center;
-    margin: 7px auto;
-}
-
-form .form-items {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
-}
-
-form .form-item {
-    /*display: ;*/
-    margin: 3px auto;
-}
-
-form > div{
-    height: 55px;
-}
-
-#map > .map-item{
-    width: 50px;
-    height: 50px;
 }
 
 .jumbotron > .map-item{
@@ -54,105 +14,14 @@ form > div{
     margin: 0 auto;
 }
 
-#map
-{
-    max-width: 800px;
-    background-color: #007bff;
-    padding: 70px;
-}
-#map .btn {
-    display: inline-block;
-    font-weight: 400;
-    white-space: nowrap;
-    vertical-align: middle;
-    user-select: none;
-    text-transform: none;
-    overflow: visible;
-    margin: 0;
-    font-family: inherit;
-    box-sizing: border-box;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: .25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    align-items: flex-start;
-    text-align: center;
-    cursor: default;
-    padding: 2px 6px 3px;
-    border-width: 2px;
-    border-style: outset;
-    border-image: initial;
-}
-
-.nav-bar .nav-bar-top{
-    display: flex;
-    justify-content: center;
-}
-#map .btn-secondary:disabled {
-    color: #fff;
-    background-color: #6c757d;
-    border-color: #6c757d;
-}
-
-#map > .btn.disabled, .btn:disabled{
-    opacity: 1;
-}
 
 button > span {
     margin-left: -8px;
 }
 
-.nav-state{
-    height: 100%;
-    float:left;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.nav-bar form{
-    margin-top: 0;
-    width: 280px;
-}
-
-.nav-bar button{
-    height: 38px;
-    width: 110px;
-}
-
-.nav-bar div{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.nav-status{
-    width: 100%;
-}
-
-.nav-status button{
-    margin: 0 auto;
-    width: 110px;
-}
-
-.nav-status p{
-    text-align: center;
-}
-
-.nav-status{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-/*.player{
-    background: url('./../images/knight.png') no-repeat;
-}*/
-
 .player{
     background: url(./../images/knight.png) no-repeat center 100%/100%;
 }
-
 
 .door{
     background: url(./../images/door.png) no-repeat center 100%/100%;

@@ -1,0 +1,44 @@
+#map {
+    width: 800px !important;
+    background-color: #007bff;
+    padding: 70px;
+}
+
+#map > .map-item{
+    width: 50px;
+    height: 50px;
+}
+
+#map .btn {
+    display: inline-block;
+    font-weight: 400;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    text-transform: none;
+    overflow: visible;
+    margin: 0;
+    font-family: inherit;
+    box-sizing: border-box;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    align-items: flex-start;
+    text-align: center;
+    cursor: default;
+    padding: 2px 6px 3px;
+    border-width: 2px;
+    border-style: outset;
+    border-image: initial;
+}
+
+#map .btn-secondary:disabled {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+#map > .btn.disabled, .btn:disabled{
+    opacity: 1;
+}

@@ -2,14 +2,57 @@
 
 namespace app\classes;
 
+/**
+ * Class Map
+ * @package app\classes
+ */
 class Map
 {
+    /**
+     * @var
+     */
     private $grid;
+    /**
+     * @var
+     */
     private $jsonGridMap;
+    /**
+     * @var int
+     */
     private $numberOfLevel = 1;
 
+    /**
+     * @param null $loadedNewMap
+     */
+    public function loadLevelOnTheMap($loadedNewMap = null)
+    {
+        if ($loadedNewMap == null) {
+            $this->jsonGridMap = json_decode(file_get_contents('./maps/map' . $this->numberOfLevel . '.json'));
+        } else {
+            $this->jsonGridMap = $loadedNewMap;
+        }
+    }
 
-    private function getRenderMapCell($itemMap, $key, $takeAllKeys = null)
+    /**
+     *
+     */
+    public function renderMap()
+    {
+        $this->grid = "<div id='map'>";
+        foreach ($this->jsonGridMap as $verticalColumnMap) {
+            foreach ($verticalColumnMap as $key => $cellMap) {
+                $this->grid .= $this->getRenderMapCell($cellMap, $key);
+            }
+        }
+        $this->grid .= "</div>";
+    }
+
+    /**
+     * @param $itemMap
+     * @param $key
+     * @return string
+     */
+    private function getRenderMapCell($itemMap, $key)
     {
         switch ($itemMap) {
             case 'W':
@@ -25,25 +68,12 @@ class Map
         }
     }
 
-    public function loadLevelOnTheMap($loadedNewMap = null)
+    /**
+     * @return mixed
+     */
+    public function getGridOfMap()
     {
-        if ($loadedNewMap == null) {
-            $this->jsonGridMap = json_decode(file_get_contents('./maps/map' . $this->numberOfLevel . '.json'));
-        } else {
-            $this->jsonGridMap = $loadedNewMap;
-        }
-    }
-
-    public function renderMap()
-    {
-        $this->grid = "<div id='map'>";
-        foreach ($this->jsonGridMap as $verticalColumnMap) {
-            foreach ($verticalColumnMap as $key => $cellMap) {
-                $this->grid .= $this->getRenderMapCell($cellMap, $key, $this->collectAllKeys);
-            }
-        }
-        $this->grid .= "</div>";
-        return $this->grid;
+        return $this -> grid;
     }
 
 }

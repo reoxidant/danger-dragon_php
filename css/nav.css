@@ -1,0 +1,52 @@
+.nav-state{
+    height: 100%;
+    float:left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-right: 50px;
+}
+
+.nav-bar form{
+    margin-top: 0;
+    width: 280px;
+}
+
+.nav-bar form div{
+    margin-bottom: 10px
+}
+
+.nav-bar button{
+    height: 38px;
+    width: 110px;
+}
+
+.nav-bar div{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-bar .nav-bar-top{
+    display: flex;
+    justify-content: center;
+}
+
+.nav-status{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-direction: column;
+}
+
+.nav-status button{
+    margin: 0 auto;
+    width: 110px;
+}
+
+.nav-status p{
+    text-align: center;
+}
+
+

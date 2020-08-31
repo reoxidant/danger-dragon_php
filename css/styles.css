@@ -4,11 +4,6 @@
     justify-content: center;
 }
 
-.main-interface>div{
-    margin: 2% auto;
-}
-
-
 .jumbotron > .map-item{
     width: 30px;
     height: 38px;
@@ -23,10 +18,6 @@
 button > span {
     margin-left: -8px;
 }
-
-/*.player{
-    background: url('./../images/knight.png') no-repeat;
-}*/
 
 .player{
     background: url(./../images/knight.png) no-repeat center 100%/100%;
